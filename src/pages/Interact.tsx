@@ -21,6 +21,10 @@ const Interact = () => {
 
   const [initialTextSpoken, setInitialTextSpoken] = useState(false);
 
+  const [avatarIsTalking, setAvatarIsTalking] = useState(false);
+
+  const [status, setStatus] = useState("Record Now");
+
   const [streamLoaded, setStreamLoaded] = useState(false);
 
   const startCapturing = useCallback(async () => {
@@ -30,6 +34,7 @@ const Interact = () => {
     setSessionStart(true);
 
     await avatar?.current?.startVoiceChat();
+    setStatus("Listening...");
   }, [sessionStart]);
 
   const stopCapturing = () => {
@@ -70,12 +75,17 @@ const Interact = () => {
       token: newToken,
     });
 
-    avatar.current.on(StreamingEvents.AVATAR_START_TALKING, () => {});
+    avatar.current.on(StreamingEvents.AVATAR_START_TALKING, () => {
+      setStatus("Answering...");
+      setAvatarIsTalking(true);
+    });
 
     avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
       closeAvatar();
       setInitialTextSpoken(true);
       stopCapturing();
+      setStatus("Record Now");
+      setAvatarIsTalking(false);
     });
 
     avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, () => {});
@@ -84,9 +94,17 @@ const Interact = () => {
       setStream(event.detail);
     });
 
-    avatar.current?.on(StreamingEvents.USER_START, () => {});
+    avatar.current?.on(StreamingEvents.USER_START, () => {
+      if (!avatarIsTalking) {
+        setStatus("Listening...");
+      }
+    });
 
     avatar.current?.on(StreamingEvents.USER_STOP, () => {});
+
+    avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {
+      setStatus("Processing...");
+    });
 
     try {
       await avatar.current.createStartAvatar({
@@ -161,7 +179,7 @@ const Interact = () => {
       </div>
 
       {userInteracted ? (
-        <div className="h-full flex overflow-hidden">
+        <div className="h-full flex overflow-hidden relative">
           <video
             muted={false}
             ref={mediaStream}
@@ -173,6 +191,12 @@ const Interact = () => {
               objectFit: "cover",
             }}
           />
+
+          {initialTextSpoken && (
+            <p className="text-white font-bold absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              {status}
+            </p>
+          )}
         </div>
       ) : (
         <div className="flex justify-center items-center">
@@ -187,7 +211,7 @@ const Interact = () => {
           {mediaStream.current?.canPlayType && streamLoaded ? (
             <>
               <button
-                disabled={!initialTextSpoken}
+                disabled={!initialTextSpoken || avatarIsTalking}
                 className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
                 onClick={() => {
                   if (sessionStart) {
@@ -206,14 +230,14 @@ const Interact = () => {
             </>
           ) : (
             <div className="flex justify-center items-center absolute top-0 left-0 w-full h-full">
-              <p className="text-white">Loading...</p>
+              <p className="text-white font-bold">Loading...</p>
             </div>
           )}
         </div>
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center px-4">
           <button
-            className="bg-[#ff2d21] h-[40px] text-white w-[50%] rounded-full disabled:opacity-50"
+            className="bg-[#ff2d21] h-[40px] text-white font-bold w-[50%] max-w-[250px] rounded-full disabled:opacity-50"
             onClick={handleUserInteraction}
           >
             Start Chatting
