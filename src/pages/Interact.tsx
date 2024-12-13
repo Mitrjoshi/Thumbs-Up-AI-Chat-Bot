@@ -109,7 +109,7 @@ const Interact = () => {
     try {
       await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
-        avatarName: "953f3b341459408c815ffebb33acfdbe",
+        avatarName: import.meta.env.VITE_HEYGEN_AVATAR_ID,
         language: "en",
         knowledgeId: "b88c9ae7d1134efda6b626e923104159",
         knowledgeBase: "Comedy",
@@ -159,7 +159,7 @@ const Interact = () => {
       await avatar?.current?.speak({
         taskType: TaskType.REPEAT,
         taskMode: TaskMode.SYNC,
-        text: "Hey there!, how are you?",
+        text: "Hey! welcome to Thums up toofani biriyani hunt. Tell me why your favourite biriyani is the best?",
       });
     } catch (e: unknown) {
       toast("Error speaking initial text:");
