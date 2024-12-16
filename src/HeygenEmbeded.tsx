@@ -17,7 +17,7 @@ const HeygenEmbed = () => {
       const stylesheet = document.createElement("style");
       const dynamicStyles =
         clientWidth < 540
-          ? "height: 266px; width: 96%; left: 50%;"
+          ? "height: 70%; width: 96%; left: 50%;"
           : "height: 366px; width: calc(366px * 16 / 9);";
       stylesheet.innerHTML = `
         #heygen-streaming-embed {

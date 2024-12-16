@@ -164,7 +164,7 @@ const Interact = () => {
   // }, [streamLoaded]);
 
   return (
-    <div className="grid grid-rows-[90px,1fr,90px] h-[100dvh]">
+    <div className="grid grid-rows-[90px,1fr,90px] h-[100dvh] relative">
       <div className="flex justify-start px-4 items-center">
         <img src="/thumbs-up.svg" alt="" className="h-[70px]" />
       </div>
