@@ -12,20 +12,19 @@ import { toast } from "sonner";
 
 const Interact = () => {
   const avatar = useRef<StreamingAvatar | null>(null);
-  const isStoppedRef = useRef<boolean>(false); // Track if capturing has been stopped
+  const isStoppedRef = useRef<boolean>(false);
 
   const [stream, setStream] = useState<MediaStream>();
   const mediaStream = useRef<HTMLVideoElement>(null);
   const [sessionStart, setSessionStart] = useState(false);
-  const [userInteracted, setUserInteracted] = useState(false); // Track user interaction
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const [initialTextSpoken, setInitialTextSpoken] = useState(false);
-
   const [avatarIsTalking, setAvatarIsTalking] = useState(false);
-
   const [status, setStatus] = useState("Record Now");
-
   const [streamLoaded, setStreamLoaded] = useState(false);
+
+  const [speakOutro, setSpeakOutro] = useState(false);
 
   const startCapturing = useCallback(async () => {
     if (sessionStart) return;
@@ -41,6 +40,9 @@ const Interact = () => {
     setStatus("Record Now");
     setSessionStart(false);
     avatar.current?.closeVoiceChat();
+    if (sessionStart) {
+      setSpeakOutro(true);
+    }
   };
 
   async function fetchAccessToken() {
@@ -111,7 +113,7 @@ const Interact = () => {
       await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
         avatarName: import.meta.env.VITE_HEYGEN_AVATAR_ID,
-        language: "en",
+        language: "hi",
         knowledgeId: "b88c9ae7d1134efda6b626e923104159",
         knowledgeBase: "Comedy",
         voice: {
@@ -121,7 +123,7 @@ const Interact = () => {
     } catch (e: unknown) {
       toast("Error starting avatar session");
     }
-  }, []);
+  }, [sessionStart]);
 
   const closeAvatar = () => {
     if (avatar.current) {
@@ -160,12 +162,30 @@ const Interact = () => {
       await avatar?.current?.speak({
         taskType: TaskType.REPEAT,
         taskMode: TaskMode.SYNC,
-        text: "Hey! welcome to Thums up toofani biriyani hunt. Tell me why your favourite biriyani is the best?",
+        text: "Hey! welcome to Thumbs up toofani biryani hunt. Tell me why your favorite biryani is the best?",
       });
     } catch (e: unknown) {
       toast("Error speaking initial text:");
     }
   }
+
+  async function outro() {
+    try {
+      await avatar?.current?.speak({
+        taskType: TaskType.REPEAT,
+        taskMode: TaskMode.SYNC,
+        text: "Here is a coupon code for you to unlock a reward",
+      });
+
+      setSpeakOutro(false);
+    } catch (e: unknown) {
+      toast("Error speaking initial text:");
+    }
+  }
+
+  useEffect(() => {
+    if (speakOutro) outro();
+  }, [speakOutro]);
 
   useEffect(() => {
     if (streamLoaded) {
