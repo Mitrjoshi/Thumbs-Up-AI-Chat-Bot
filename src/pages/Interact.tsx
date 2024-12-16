@@ -167,7 +167,7 @@ const Interact = () => {
     try {
       await avatar?.current?.speak({
         taskType: TaskType.REPEAT,
-        taskMode: TaskMode.SYNC,
+        taskMode: TaskMode.ASYNC,
         text: "Here is a coupon code for you to unlock a reward",
       });
 
