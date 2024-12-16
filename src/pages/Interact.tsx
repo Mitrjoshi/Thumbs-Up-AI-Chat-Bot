@@ -170,6 +170,8 @@ const Interact = () => {
         taskMode: TaskMode.SYNC,
         text: "Here is a coupon code for you to unlock a reward",
       });
+
+      setSessionStart(false);
     } catch (e: unknown) {
       toast("Error speaking initial text:");
     }
@@ -178,7 +180,6 @@ const Interact = () => {
   useEffect(() => {
     if (status === "Record Now" && sessionStart) {
       outro();
-      setSessionStart(false);
     }
   }, [status, sessionStart]);
 
