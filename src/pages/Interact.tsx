@@ -227,27 +227,27 @@ const Interact = () => {
 
       {userInteracted ? (
         <div className="flex justify-center items-center">
-          {mediaStream.current?.canPlayType &&
-          streamLoaded &&
-          initialTextSpoken ? (
+          {mediaStream.current?.canPlayType && streamLoaded ? (
             <>
-              <button
-                disabled={sessionStart}
-                className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
-                onClick={() => {
-                  if (sessionStart) {
-                    stopCapturing();
-                  } else {
-                    startCapturing();
-                  }
-                }}
-              >
-                {sessionStart ? (
-                  <Pause fill="white" color="white" />
-                ) : (
-                  <Play fill="white" color="white" />
-                )}
-              </button>
+              {initialTextSpoken && (
+                <button
+                  disabled={sessionStart}
+                  className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
+                  onClick={() => {
+                    if (sessionStart) {
+                      stopCapturing();
+                    } else {
+                      startCapturing();
+                    }
+                  }}
+                >
+                  {sessionStart ? (
+                    <Pause fill="white" color="white" />
+                  ) : (
+                    <Play fill="white" color="white" />
+                  )}
+                </button>
+              )}
             </>
           ) : (
             <div className="flex justify-center items-center absolute top-0 left-0 w-full h-full">
