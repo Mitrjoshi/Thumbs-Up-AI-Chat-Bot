@@ -111,7 +111,7 @@ const Interact = () => {
         knowledgeId: "71ecb685090f4dae8353b8cb473dc482",
         knowledgeBase: "Thums-Up-Knowledgebase",
         voice: {
-          emotion: VoiceEmotion.EXCITED,
+          emotion: VoiceEmotion.FRIENDLY,
         },
       });
     } catch (e: unknown) {
@@ -163,25 +163,25 @@ const Interact = () => {
     }
   }
 
-  // async function outro() {
-  //   try {
-  //     await avatar?.current?.speak({
-  //       taskType: TaskType.REPEAT,
-  //       taskMode: TaskMode.ASYNC,
-  //       text: "Here is a coupon code for you to unlock a reward",
-  //     });
+  async function outro() {
+    try {
+      await avatar?.current?.speak({
+        taskType: TaskType.REPEAT,
+        taskMode: TaskMode.ASYNC,
+        text: "Here is a coupon code for you to unlock a reward",
+      });
 
-  //     setSessionStart(false);
-  //   } catch (e: unknown) {
-  //     toast("Error speaking initial text:");
-  //   }
-  // }
+      setSessionStart(false);
+    } catch (e: unknown) {
+      toast("Error speaking initial text:");
+    }
+  }
 
   useEffect(() => {
     if (status === "Record Now" && sessionStart) {
-      // setTimeout(() => {
-      //   outro();
-      // }, 2000);
+      setTimeout(() => {
+        outro();
+      }, 4000);
     }
   }, [status, sessionStart]);
 
