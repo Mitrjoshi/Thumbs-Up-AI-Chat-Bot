@@ -32,12 +32,13 @@ const Interact = () => {
 
     isStoppedRef.current = false;
     setSessionStart(true);
+    setStatus("Listening...");
 
     await avatar?.current?.startVoiceChat();
-    setStatus("Listening...");
   }, [sessionStart]);
 
   const stopCapturing = () => {
+    setStatus("Record Now");
     setSessionStart(false);
     avatar.current?.closeVoiceChat();
   };
