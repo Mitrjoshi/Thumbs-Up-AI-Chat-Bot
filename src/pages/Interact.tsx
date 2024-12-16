@@ -163,19 +163,19 @@ const Interact = () => {
     }
   }
 
-  async function outro() {
-    try {
-      await avatar?.current?.speak({
-        taskType: TaskType.REPEAT,
-        taskMode: TaskMode.ASYNC,
-        text: "Here is a coupon code for you to unlock a reward",
-      });
+  // async function outro() {
+  //   try {
+  //     await avatar?.current?.speak({
+  //       taskType: TaskType.REPEAT,
+  //       taskMode: TaskMode.ASYNC,
+  //       text: "Here is a coupon code for you to unlock a reward",
+  //     });
 
-      setSessionStart(false);
-    } catch (e: unknown) {
-      toast("Error speaking initial text:");
-    }
-  }
+  //     setSessionStart(false);
+  //   } catch (e: unknown) {
+  //     toast("Error speaking initial text:");
+  //   }
+  // }
 
   useEffect(() => {
     if (status === "Record Now" && sessionStart) {
