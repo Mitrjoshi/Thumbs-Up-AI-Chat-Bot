@@ -179,7 +179,9 @@ const Interact = () => {
 
   useEffect(() => {
     if (status === "Record Now" && sessionStart) {
-      outro();
+      setTimeout(() => {
+        outro();
+      }, 2000);
     }
   }, [status, sessionStart]);
 
@@ -225,7 +227,9 @@ const Interact = () => {
 
       {userInteracted ? (
         <div className="flex justify-center items-center">
-          {mediaStream.current?.canPlayType && streamLoaded ? (
+          {mediaStream.current?.canPlayType &&
+          streamLoaded &&
+          initialTextSpoken ? (
             <>
               <button
                 disabled={sessionStart}
