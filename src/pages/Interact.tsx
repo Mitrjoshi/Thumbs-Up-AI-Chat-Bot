@@ -24,8 +24,6 @@ const Interact = () => {
   const [status, setStatus] = useState("Record Now");
   const [streamLoaded, setStreamLoaded] = useState(false);
 
-  const [speakOutro, setSpeakOutro] = useState(false);
-
   const startCapturing = useCallback(async () => {
     if (sessionStart) return;
 
@@ -39,9 +37,6 @@ const Interact = () => {
   const stopCapturing = () => {
     setStatus("Record Now");
     avatar.current?.closeVoiceChat();
-    if (sessionStart) {
-      setSpeakOutro(true);
-    }
   };
 
   async function fetchAccessToken() {
@@ -175,8 +170,6 @@ const Interact = () => {
         taskMode: TaskMode.SYNC,
         text: "Here is a coupon code for you to unlock a reward",
       });
-
-      setSpeakOutro(false);
     } catch (e: unknown) {
       toast("Error speaking initial text:");
     }
