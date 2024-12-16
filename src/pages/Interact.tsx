@@ -108,8 +108,8 @@ const Interact = () => {
         quality: AvatarQuality.Low,
         avatarName: import.meta.env.VITE_HEYGEN_AVATAR_ID,
         language: "en",
-        knowledgeId: "b88c9ae7d1134efda6b626e923104159",
-        knowledgeBase: "Comedy",
+        knowledgeId: "71ecb685090f4dae8353b8cb473dc482",
+        knowledgeBase: "Thums-Up-Knowledgebase",
         voice: {
           emotion: VoiceEmotion.EXCITED,
         },
@@ -156,7 +156,7 @@ const Interact = () => {
       await avatar?.current?.speak({
         taskType: TaskType.REPEAT,
         taskMode: TaskMode.SYNC,
-        text: "Hey! welcome to Thumbs up toofani biryani hunt. Tell me why your favorite biryani is the best?",
+        text: "Hey! welcome to Thums up toofani biryani hunt. Tell me why your favorite biryani is the best?",
       });
     } catch (e: unknown) {
       toast("Error speaking initial text:");
@@ -179,9 +179,9 @@ const Interact = () => {
 
   useEffect(() => {
     if (status === "Record Now" && sessionStart) {
-      setTimeout(() => {
-        outro();
-      }, 2000);
+      // setTimeout(() => {
+      //   outro();
+      // }, 2000);
     }
   }, [status, sessionStart]);
 
