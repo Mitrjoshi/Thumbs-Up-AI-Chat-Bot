@@ -35,7 +35,6 @@ const Interact = () => {
   }, [sessionStart]);
 
   const stopCapturing = () => {
-    setStatus("Record Now");
     avatar.current?.closeVoiceChat();
   };
 
@@ -108,10 +107,12 @@ const Interact = () => {
         quality: AvatarQuality.Low,
         avatarName: import.meta.env.VITE_HEYGEN_AVATAR_ID,
         language: "en",
-        knowledgeId: "71ecb685090f4dae8353b8cb473dc482",
-        knowledgeBase: "Thums-Up-Knowledgebase",
+        knowledgeId: "7877a2e512c24f1fb923bf37cdd9e992",
+        knowledgeBase: "TU - Biryani Bot",
         voice: {
           emotion: VoiceEmotion.FRIENDLY,
+          voiceId: "1985984feded457b9d013b4f6551ac94",
+          rate: 1.5,
         },
       });
     } catch (e: unknown) {
@@ -151,39 +152,9 @@ const Interact = () => {
     };
   }, []);
 
-  async function init() {
-    try {
-      await avatar?.current?.speak({
-        taskType: TaskType.REPEAT,
-        taskMode: TaskMode.SYNC,
-        text: "Hey! welcome to Thums up toofani biryani hunt. Tell me why your favorite biryani is the best?",
-      });
-    } catch (e: unknown) {
-      toast("Error speaking initial text:");
-    }
-  }
-
-  async function outro() {
-    try {
-      await avatar?.current?.speak({
-        taskType: TaskType.REPEAT,
-        taskMode: TaskMode.ASYNC,
-        text: "Here is a coupon code for you to unlock a reward",
-      });
-
-      setSessionStart(false);
-    } catch (e: unknown) {
-      toast("Error speaking initial text:");
-    }
-  }
-
-  useEffect(() => {
-    if (status === "Record Now" && sessionStart) {
-      setTimeout(() => {
-        outro();
-      }, 2000);
-    }
-  }, [status, sessionStart]);
+  const init = async () => {
+    await avatar?.current?.startVoiceChat();
+  };
 
   useEffect(() => {
     if (streamLoaded) {
@@ -209,7 +180,9 @@ const Interact = () => {
               height: "100%",
               objectFit: "cover",
             }}
-          />
+          >
+            <track kind="captions" />
+          </video>
 
           {initialTextSpoken && (
             <p className="text-white font-bold absolute bottom-4 left-1/2 transform -translate-x-1/2">
@@ -229,25 +202,22 @@ const Interact = () => {
         <div className="flex justify-center items-center">
           {mediaStream.current?.canPlayType && streamLoaded ? (
             <>
-              {initialTextSpoken && (
-                <button
-                  disabled={sessionStart}
-                  className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
-                  onClick={() => {
-                    if (sessionStart) {
-                      stopCapturing();
-                    } else {
-                      startCapturing();
-                    }
-                  }}
-                >
-                  {sessionStart ? (
-                    <Pause fill="white" color="white" />
-                  ) : (
-                    <Play fill="white" color="white" />
-                  )}
-                </button>
-              )}
+              <button
+                className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
+                onClick={() => {
+                  if (sessionStart) {
+                    stopCapturing();
+                  } else {
+                    startCapturing();
+                  }
+                }}
+              >
+                {sessionStart ? (
+                  <Pause fill="white" color="white" />
+                ) : (
+                  <Play fill="white" color="white" />
+                )}
+              </button>
             </>
           ) : (
             <div className="flex justify-center items-center absolute top-0 left-0 w-full h-full">
