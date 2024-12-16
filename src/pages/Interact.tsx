@@ -113,7 +113,7 @@ const Interact = () => {
       await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
         avatarName: import.meta.env.VITE_HEYGEN_AVATAR_ID,
-        language: "hi",
+        language: "en",
         knowledgeId: "b88c9ae7d1134efda6b626e923104159",
         knowledgeBase: "Comedy",
         voice: {
