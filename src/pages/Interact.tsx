@@ -181,7 +181,7 @@ const Interact = () => {
     if (status === "Record Now" && sessionStart) {
       setTimeout(() => {
         outro();
-      }, 4000);
+      }, 2000);
     }
   }, [status, sessionStart]);
 
