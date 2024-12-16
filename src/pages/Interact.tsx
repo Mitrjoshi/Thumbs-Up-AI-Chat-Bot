@@ -38,7 +38,6 @@ const Interact = () => {
 
   const stopCapturing = () => {
     setStatus("Record Now");
-    setSessionStart(false);
     avatar.current?.closeVoiceChat();
     if (sessionStart) {
       setSpeakOutro(true);
@@ -184,8 +183,11 @@ const Interact = () => {
   }
 
   useEffect(() => {
-    if (speakOutro) outro();
-  }, [speakOutro]);
+    if (status === "Record Now" && sessionStart) {
+      outro();
+      setSessionStart(false);
+    }
+  }, [status, sessionStart]);
 
   useEffect(() => {
     if (streamLoaded) {
