@@ -227,7 +227,7 @@ const Interact = () => {
           {mediaStream.current?.canPlayType && streamLoaded ? (
             <>
               <button
-                disabled={!initialTextSpoken || avatarIsTalking}
+                disabled={sessionStart}
                 className="bg-[#ff2d21] p-4 rounded-full disabled:opacity-50"
                 onClick={() => {
                   if (sessionStart) {
