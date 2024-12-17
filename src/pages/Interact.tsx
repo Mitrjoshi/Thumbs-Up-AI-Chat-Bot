@@ -144,7 +144,7 @@ const Interact = () => {
 
   const init = async () => {
     await avatar.current?.speak({
-      text: `Namaste, mere pyare dost! Aapka swagat hai, main hoon duniya ka Biggest Fan of Biryani! Aapki favorite biryani kya hai, aur kyun aap usse itna pyaar karte hain? Batayiye, khud se sirf 15 seconds mein!`,
+      text: `Hello, my beloved friend! It's your cheerful host, the Biggest Fan of Biryani in the World, ready to whisk you away on a delicious adventure! Tell me, what is your favorite type of biryani, and why does it make your heart dance with joy? You have just 15 seconds!`,
       task_type: TaskType.REPEAT,
       taskMode: TaskMode.SYNC,
     });
