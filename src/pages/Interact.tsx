@@ -36,7 +36,7 @@ const Interact = () => {
   const stopCapturing = () => {
     setSessionStart(false);
     avatar.current?.closeVoiceChat();
-    setStatus("Record...");
+    setStatus("Record Now");
   };
 
   async function fetchAccessToken() {
@@ -81,6 +81,7 @@ const Interact = () => {
       stopCapturing();
       setAvatarIsTalking(false);
       setInitialTextSpoken(true);
+      setStatus("Record Now");
     });
 
     avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, () => {});
@@ -89,11 +90,17 @@ const Interact = () => {
       setStream(event.detail);
     });
 
-    avatar.current?.on(StreamingEvents.USER_START, () => {});
+    avatar.current?.on(StreamingEvents.USER_START, () => {
+      if (!avatarIsTalking) {
+        setStatus("Listening...");
+      }
+    });
 
     avatar.current?.on(StreamingEvents.USER_STOP, () => {});
 
-    avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {});
+    avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {
+      setStatus("Processing...");
+    });
 
     try {
       await avatar.current.createStartAvatar({
