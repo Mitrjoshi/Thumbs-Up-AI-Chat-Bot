@@ -100,6 +100,7 @@ const Interact = () => {
 
     avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {
       setStatus("Processing...");
+      avatar.current?.closeVoiceChat();
     });
 
     try {
@@ -187,7 +188,8 @@ const Interact = () => {
 
           {mediaStream.current?.canPlayType &&
             streamLoaded &&
-            initialTextSpoken && (
+            initialTextSpoken &&
+            !avatarIsTalking && (
               <p className="text-white font-bold absolute bottom-4 left-1/2 transform -translate-x-1/2">
                 {status}
               </p>
