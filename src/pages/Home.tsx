@@ -24,13 +24,14 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-end h-[100dvh] py-20">
-      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-[-9]">
+    <div className="grid grid-rows-[1fr,90px] h-[100dvh] relative items-center justify-center py-10">
+      <div className="w-full  h-full flex items-center justify-center z-[-9]">
         <img src="./thumbs-up.svg" className="w-[50%] aspect-square" alt="" />
       </div>
+
       <button
         onClick={handleNavigate}
-        className="bg-[#ff2d21] px-12 py-2 rounded-full"
+        className="bg-[#ff2d21] px-12 py-2 rounded-full max-w-[250px] m-auto"
       >
         <p className="text-white font-bold text-lg">Get Started</p>
       </button>

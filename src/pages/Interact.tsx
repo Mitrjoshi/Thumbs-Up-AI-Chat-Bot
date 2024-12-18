@@ -243,9 +243,9 @@ const Interact = () => {
           )}
         </div>
       ) : (
-        <div className="flex justify-center items-center px-4">
+        <div className="flex justify-center items-start px-4">
           <button
-            className="bg-[#ff2d21] h-[40px] text-white font-bold w-[50%] max-w-[250px] rounded-full disabled:opacity-50"
+            className="bg-[#ff2d21] px-12 py-2 text-white font-bold rounded-full disabled:opacity-50"
             onClick={handleUserInteraction}
           >
             Start Chatting
