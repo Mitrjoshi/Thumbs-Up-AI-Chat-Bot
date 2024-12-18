@@ -18,7 +18,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <>
-    <div className="max-w-[500px] m-auto relative">
+    <div className="relative">
       <RouterProvider router={router} />
     </div>
     <Toaster position="top-center" />

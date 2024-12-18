@@ -165,13 +165,13 @@ const Interact = () => {
   }, [streamLoaded]);
 
   return (
-    <div className="grid grid-rows-[90px,1fr,90px] h-[100dvh] relative">
+    <div className="grid grid-rows-[90px,1fr,90px]  h-[100dvh] relative">
       <div className="flex justify-start px-4 items-center">
         <img src="/thumbs-up.svg" alt="" className="h-[70px]" />
       </div>
 
       {userInteracted ? (
-        <div className="h-full flex overflow-hidden relative">
+        <div className="h-full flex overflow-hidden relative max-w-[500px] m-auto">
           <video
             muted={false}
             ref={mediaStream}
@@ -204,7 +204,7 @@ const Interact = () => {
       )}
 
       {userInteracted ? (
-        <div className="flex justify-center gap-4 items-center">
+        <div className="flex justify-center gap-4 items-center max-w-[500px] m-auto">
           {mediaStream.current?.canPlayType && streamLoaded ? (
             initialTextSpoken && (
               <>
